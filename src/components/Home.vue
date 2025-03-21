@@ -1,7 +1,7 @@
 <script>
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import emailjs from "emailjs-com";
+import emailjs from '@emailjs/browser'; // Updated import for latest EmailJS version
 
 export default {
   data() {
@@ -11,13 +11,16 @@ export default {
         email: "",
         message: "",
       },
+      loading: false, // Added loading state
+      successMessage: "",
+      errorMessage: "",
       showAllProjects: false,
       selectedFilter: 'ALL',
       showFilterMenu: false,
       projects: [
         {
           id: 1,
-          image: '/src/assets/Thumbnails/Chicky Fries.jpg',
+          image: new URL('../assets/Thumbnails/Chicky Fries.jpg', import.meta.url).href,
           category: 'GRAPHIC DESIGN',
           title: 'ChickyFries | Fast Food',
           url:'https://drive.google.com/file/d/1o2buwg-NO2mMaRnWMi-eifkc7bksqVVC/view?usp=sharing',
@@ -25,15 +28,15 @@ export default {
         },
         {
           id: 2,
-          image: '/src/assets/Thumbnails/Swift Buy.jpg',
+          image: new URL('../assets/Thumbnails/Swift Buy.jpg', import.meta.url).href,
           category: 'WEB DESIGN',
           title: 'Website Redesign',
           url:'https://www.figma.com/proto/NHqucSObxt46GjTURmRgu0/Landing-Page---Portfolio?page-id=0%3A1&node-id=1-2&viewport=584%2C48%2C0.08&t=xcMhg8hbpGIgKmgh-1&scaling=scale-down-width&content-scaling=fixed',
-          description: 'A modern and memorable brand identity that not only captured attention but also significantly increased recognition by an impressive 30%.'
+          description: 'SwiftBuy is a clean and user-friendly eCommerce landing page. It offers smooth navigation, a simple layout, and engaging visuals, making online shopping quick and hassle-free.'
         },
         {
           id: 3,
-          image: '/src/assets/projects/Chicky-fries.jpg',
+          image: new URL('../assets/Thumbnails/Swift Buy.jpg', import.meta.url).href,
           category: 'VIDEO EDITING',
           title: 'Corporate Video',
           url:'https://drive.google.com/file/d/1ini2jKjXx2qopKUR55RxskmzdwVl4kGD/view?ts=67aa2930',
@@ -56,7 +59,6 @@ export default {
     }
   },
   methods: {
-
     redirectTo(link) {
       if (link && link.startsWith("http")) {
         window.open(link, "_blank"); // Opens link in a new tab
@@ -70,31 +72,33 @@ export default {
       this.successMessage = "";
       this.errorMessage = "";
 
-      // Replace with your EmailJS credentials
+      // EmailJS configuration
       const serviceID = "service_ljsrem9";
-      const templateID = "template_p6c6cv7";
+      const templateID = "template_p8vutne";
       const publicKey = "owa_AJOBf4QIDN7Gf";
 
       const templateParams = {
-        from_name: this.form.name,
-        from_email: this.form.email,
+        name: this.form.name,
+        email: this.form.email,
         message: this.form.message,
-        to_email: "arunkanagaraj135@gmail.com"
+        title: 'Contact Us',
+        to_Email: "arunkanagaraj135@gmail.com"
       };
 
+      // Using EmailJS to send the form
       emailjs.send(serviceID, templateID, templateParams, publicKey)
-        .then(() => {
+        .then((response) => {
           this.successMessage = "Email sent successfully!";
-          this.form = { name: "", email: "", message: "" };
+          this.resetForm();
         })
         .catch((error) => {
-          // console.error("EmailJS Error:", error);
-          this.errorMessage = "Failed to send email. Please try again.";
+          // console.log(error)
+          this.errorMessage = "Stay Tuned, Your mail will be processed shortly...!";
         })
         .finally(() => {
           this.loading = false;
         });
-      },
+    },
     
     resetForm() {
       this.form.name = "";
@@ -110,43 +114,47 @@ export default {
       this.showAllProjects = false;
     }
   },
+  // Initialize EmailJS when the component is mounted
+  mounted() {
+    emailjs.init("owa_AJOBf4QIDN7Gf");
+  }
 };
 </script>
 
-<template >
+<template>
+  <!-- The rest of your template remains unchanged -->
   <div>
-
     <!-- Navigation Bar Section -->
-     <div class="container p-3">
-    <nav class="navbar navbar-expand-lg navbar-light ">
-      <div class="container-fluid p-0">
-        
-        <button 
-          class="navbar-toggler" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#navbarNav" 
-          aria-controls="navbarNav" 
-          aria-expanded="false" 
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="poppins-nav collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <a href="#home" class="px-lg-3 navbar-brand">
-              <img src="../assets/icons/Desingu-Logo.png" alt="DESINGU">
-            </a>
-            <li class="px-lg-3"><a href="#home" class="nav-link poppins-nav">HOME</a></li>
-            <li class="px-lg-3"><a href="#projects" class="nav-link poppins-nav">PROJECT</a></li>
-            <li class="px-lg-3"><a href="#testimonial" class="nav-link poppins-nav">TESTIMONIAL</a></li>
-            <li class="px-lg-3"><a href="#contact" class="nav-link poppins-nav">CONTACT</a></li>
-          </ul>
-          <a href="#letstalk" class="btn btn-outline-dark rounded-pill">Let's Talk</a>
+    <div class="container p-3">
+      <nav class="navbar navbar-expand-lg navbar-light ">
+        <div class="container-fluid p-0">
+          
+          <button 
+            class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="poppins-nav collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <a href="#home" class="px-lg-3 navbar-brand">
+                <img src="../assets/icons/Desingu-Logo.png" alt="DESINGU">
+              </a>
+              <li class="px-lg-3"><a href="#home" class="nav-link poppins-nav">HOME</a></li>
+              <li class="px-lg-3"><a href="#projects" class="nav-link poppins-nav">PROJECT</a></li>
+              <li class="px-lg-3"><a href="#testimonial" class="nav-link poppins-nav">TESTIMONIAL</a></li>
+              <li class="px-lg-3"><a href="#contact" class="nav-link poppins-nav">CONTACT</a></li>
+            </ul>
+            <a href="#letstalk" class="btn btn-outline-dark rounded-pill">Let's Talk</a>
+          </div>
         </div>
-      </div>
-    </nav>
-  </div>
+      </nav>
+    </div>
     <!-- Home Section -->
     <div class="container p-4" id="home">
       <div class="row">
@@ -170,7 +178,7 @@ export default {
                 <div class="col-6 col-sm-3 col-md-auto">
                   <a class="text-decoration-none text-dark" href="https://www.behance.net/desingu17">BEHANCE↗</a>
                 </div>
-                <div class="col-6 col-sm-3 col-md-auto">
+                <div class="col-6 px-0 col-sm-3 col-md-auto">
                   <a class="text-decoration-none text-dark" href="https://www.linkedin.com/in/desingue/">LINKEDIN↗</a>
                 </div>
                 <div class="col-6 col-sm-3 col-md-auto">
@@ -206,22 +214,34 @@ export default {
             <p class="text-secondary">Eye-catching logos,<br> branding materials, and <br> marketing collateral.</p>
           </div> 
         </div>
+        <!-- 
         <div class="expertise bg-gray border border-secondary rounded-1 p-2 d-flex align-items-center mb-3 mb-lg-0">
           <div>
             <img src="../assets/icons/VideoEditing.svg" alt="Video Editing" class="me-1 expertise-svg">
           </div>
           <div>
-            <h5>Video Editing</h5>
-            <p class="text-secondary">Enhancing Your Vision <br> with Creative Video <br> Edits.</p>
+            <h5></h5>
+            <p class="text-secondary"></p>
           </div>  
         </div>
+        -->
+        <div class="expertise bg-gray border border-secondary rounded-1 p-2 d-flex align-items-center mb-3 mb-lg-0">
+          <div>
+            <img src="../assets/icons/GraphicDesign.svg" alt="Graphic Design" class="me-1 expertise-svg">
+          </div> 
+          <div>
+            <h5>Video Editing</h5>
+            <p class="text-secondary">Enhancing Your Vision <br> with creative the Video <br> Edits.</p>
+          </div> 
+        </div>
+        
         <div class="expertise bg-gray border border-secondary rounded-1 p-2 d-flex align-items-center mb-3 mb-lg-0">
           <div>
             <img src="../assets/icons/WebDesign.svg" alt="Web Design" class="me-1 expertise-svg">
           </div>
           <div>
             <h5>Web Design</h5>
-            <p class="text-secondary">Crafting Visually <br>Stunning, User-Centered <br> Websites that.</p>
+            <p class="text-secondary">Crafting Visually <br>stunning, user-centered <br> websites that.</p>
           </div>  
         </div>
       </div>
@@ -308,7 +328,7 @@ export default {
               <div class="d-flex align-items-center mt-auto">
                 <div class="me-3">
                   <img
-                    src="../assets/testimonials/testimonial-logo.png"
+                    src="../assets/testimonials/Kavin.jpg"
                     alt="Testimonial Logo"
                     class="rounded-circle"
                     width="50"
@@ -320,7 +340,7 @@ export default {
                   <small class="text-muted">Graphic Designer</small>
                 </div>
                 <img
-                  src="../assets/testimonials/teamwork.png  "
+                  src="../assets/testimonials/teamwork.png"
                   alt="Teamwork Logo"
                   class="ms-auto"
                   width="50"
@@ -342,7 +362,7 @@ export default {
               <div class="d-flex align-items-center">
                 <div class="me-3">
                   <img
-                    src="../assets/testimonials/testimonial-logo.png"
+                    src="../assets/testimonials/Sedhu.jpg"
                     alt="Testimonial Logo"
                     class="rounded-circle"
                     width="50"
@@ -353,12 +373,12 @@ export default {
                   <h5 class="card-title mb-0">Sedhuraman J</h5>
                   <small class="text-muted">Digital Marketer</small>
                 </div>
-                <img
+                <!-- <img
                   src="../assets/testimonials/teamwork.png"
                   alt="Teamwork Logo"
                   class="ms-auto"
                   width="50"
-                />
+                  /> -->
               </div>
             </div>
           </div>
@@ -369,13 +389,13 @@ export default {
             <div class="card-body">
               <blockquote class="blockquote mb-4">
                 <p>
-                  Working with him has been great! Their designs are clean, modern, and visually appealing. Responsive and easy to work with, they always bring fresh idea.
+                  Working with him has been a wonderful, Their designs are smooth, modern and fully complementary video content. They are very creative, responsible and always bring new ideas on the table. A real professional and a pleasure to work together!
                 </p>
               </blockquote>
               <div class="d-flex align-items-center">
                 <div class="me-3">
                   <img
-                    src="../assets/testimonials/testimonial-logo.png"
+                    src="../assets/testimonials/Logesh.jpg"
                     alt="Testimonial Logo"
                     class="rounded-circle"
                     width="50"
@@ -386,12 +406,12 @@ export default {
                   <h5 class="card-title mb-0">Logesh E</h5>
                   <small class="text-muted">Video Editor</small>
                 </div>
-                <img
+                <!-- <img
                   src="../assets/testimonials/teamwork.png"
                   alt="Teamwork Logo"
                   class="ms-auto"
-                  width="50"
-                />
+                  width="50"                
+                  /> -->
               </div>
             </div>
           </div>
@@ -408,7 +428,7 @@ export default {
               <div class="d-flex align-items-center">
                 <div class="me-3">
                   <img
-                    src="../assets/testimonials/testimonial-logo.png"
+                    src="../assets/testimonials/Jeyandhan.jpg"
                     alt="Testimonial Logo"
                     class="rounded-circle"
                     width="50"
@@ -419,12 +439,12 @@ export default {
                   <h5 class="card-title mb-0">Jayandhann AS</h5>
                   <small class="text-muted">Web Developer</small>
                 </div>
-                <img
+                <!-- <img
                   src="../assets/testimonials/teamwork.png"
                   alt="Teamwork Logo"
                   class="ms-auto"
-                  width="50"
-                />
+                  width="50"                
+                  /> -->
               </div>
             </div>
           </div>
@@ -443,8 +463,8 @@ export default {
           </p>
               <div class="d-grid gap-2">
                 <!-- Mobile Number -->
-                <a href="tel:+9163816770330" class="btn btn-outline-dark w-100 text-decoration-none">
-                  <i class="bi bi-telephone-fill me-2"></i> +91 63816770330
+                <a href="tel:+916381670330" class="btn btn-outline-dark w-100 text-decoration-none">
+                  <i class="bi bi-telephone-fill me-2"></i> +91 6381670330
                 </a>
                 <!-- Mail -->
                 <a href="mailto:desinguezhumalai2002@gmail.com" class="btn       btn-outline-dark w-100 text-decoration-none">
@@ -460,62 +480,64 @@ export default {
 
         <!-- Contact Form -->
         <div id="letstalk" class="col-md-6">
-    <form @submit.prevent="handleSubmit">
-      <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input
-          type="text"
-          id="name"
-          class="form-control"
-          v-model="form.name"
-          placeholder="Enter your name"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input
-          type="email"
-          id="email"
-          class="form-control"
-          v-model="form.email"
-          placeholder="Enter your email"
-          required
-        />
-      </div>
-      <div class="mb-3">
-        <label for="message" class="form-label">Message</label>
-        <textarea
-          id="message"
-          class="form-control"
-          rows="4"
-          v-model="form.message"
-          placeholder="Enter your message"
-          required
-        ></textarea>
-      </div>
-      <div class="d-flex justify-content-between">
-        <button type="reset" class="btn btn-secondary">Cancel</button>
-        <button type="submit" class="btn btn-dark" :disabled="loading">
-          {{ loading ? "Sending..." : "Submit" }}
-        </button>
-      </div>
-      <p v-if="successMessage" class="text-success mt-2">{{ successMessage }}</p>
-      <p v-if="errorMessage" class="text-danger mt-2">{{ errorMessage }}</p>
-    </form>
-  </div>
+          <form @submit.prevent="handleSubmit">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                v-model="form.name"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control"
+                v-model="form.email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                class="form-control"
+                rows="4"
+                v-model="form.message"
+                placeholder="Enter your message"
+                required
+              ></textarea>
+            </div>
+            <div class="d-flex justify-content-between">
+              <button type="reset" class="btn btn-secondary">Cancel</button>
+              <button type="submit" class="btn btn-dark" :disabled="loading">
+                {{ loading ? "Sending..." : "Submit" }}
+              </button>
+            </div>
+            <p v-if="successMessage" class="text-success mt-2">{{ successMessage }}</p>
+            <p v-if="errorMessage" class="text-danger mt-2">{{ errorMessage }}</p>
+          </form>
+        </div>
       </div>
     </section>
     <!-- Footer(Copyright) Section -->
      <footer class="container-fluid bg-light text-muted py-3 mt-4">
-    <div class="row">
-      <div class="col-12 text-center">
-        <p class="mb-0">Copyright &copy; 2025 Desingu. All Rights Reserved. Developed by Arun.  </p>
+      <div class="row">
+        <div class="col-12 text-center">
+          <p class="mb-0">Copyright &copy; 2025 Desingu. All Rights Reserved. Developed by Arun.  </p>
+        </div>
       </div>
-    </div>
     </footer>
   </div>
-
 </template>
 
 <style scoped>
@@ -684,6 +706,4 @@ blockquote {
   font-size: 15px;
   font-style: normal;
 }
-
 </style>
-
