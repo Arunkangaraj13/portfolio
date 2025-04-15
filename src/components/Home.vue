@@ -6,6 +6,14 @@ import emailjs from '@emailjs/browser'; // Updated import for latest EmailJS ver
 export default {
   data() {
     return {
+      scrollItems: [
+        'LANDING PAGE DESIGN',
+        'AD CREATIVES',
+        'SOCIAL MEDIA POSTS',
+        'WEB DESIGN',
+        'GMB POSTS',
+        'PRINT & DIGITAL MEDIA'
+      ],
       form: {
         name: "",
         email: "",
@@ -20,7 +28,7 @@ export default {
       projects: [
         {
           id: 1,
-          image: new URL('../assets/Thumbnails/Chicky Fries.jpg', import.meta.url).href,
+          image: new URL('../assets/Thumbnails/Chicky Fries.jpg', import.meta.url).href, // Fixed image path
           category: 'GRAPHIC DESIGN',
           title: 'ChickyFries | Fast Food',
           url:'https://drive.google.com/file/d/1o2buwg-NO2mMaRnWMi-eifkc7bksqVVC/view?usp=sharing',
@@ -28,19 +36,19 @@ export default {
         },
         {
           id: 2,
-          image: new URL('../assets/Thumbnails/Swift Buy.jpg', import.meta.url).href,
+          image: new URL('../assets/Thumbnails/Swift Buy.jpg', import.meta.url).href, // Fixed image path
           category: 'WEB DESIGN',
           title: 'Website Redesign',
           url:'https://www.figma.com/proto/NHqucSObxt46GjTURmRgu0/Landing-Page---Portfolio?page-id=0%3A1&node-id=1-2&viewport=584%2C48%2C0.08&t=xcMhg8hbpGIgKmgh-1&scaling=scale-down-width&content-scaling=fixed',
-          description: 'SwiftBuy is a clean and user-friendly eCommerce landing page. It offers smooth navigation, a simple layout, and engaging visuals, making online shopping quick and hassle-free.'
+          description: 'A modern and memorable brand identity that not only captured attention but also significantly increased recognition by an impressive 30%.'
         },
         {
           id: 3,
-          image: new URL('../assets/Thumbnails/Swift Buy.jpg', import.meta.url).href,
+          image: new URL('../assets/Thumbnails/TitanFlt.jpg', import.meta.url).href, // Fixed image path
           category: 'VIDEO EDITING',
-          title: 'Corporate Video',
-          url:'https://drive.google.com/file/d/1ini2jKjXx2qopKUR55RxskmzdwVl4kGD/view?ts=67aa2930',
-          description: 'A modern and memorable brand identity that not only captured attention but also significantly increased recognition by an impressive 30%.'
+          title: 'TitanFit | Fitness',
+          url:'https://www.figma.com/proto/CguWYXK7HFyfV8xAv3N5Xh/Landing-Page---Portfolio---TitanFit?page-id=0%3A1&node-id=1-2&viewport=791%2C95%2C0.13&t=wbCG1CLMUbTggdZB-1&scaling=scale-down-width&content-scaling=fixed',
+          description: 'Your fitness journey starts here. TitanFit offers the best workout space, modern equipment, and expert guidance to help you stay fit and healthy. Train better. Feel stronger. Live healthier with TitanFit.'
         },
         // Add more projects as needed
       ],
@@ -78,14 +86,14 @@ export default {
       const publicKey = "owa_AJOBf4QIDN7Gf";
 
       const templateParams = {
-        name: this.form.name,
-        email: this.form.email,
+        sender_name: this.form.name,
+        sender_email: this.form.email,
         message: this.form.message,
-        title: 'Contact Us',
-        to_Email: "arunkanagaraj135@gmail.com"
+        title: 'New Contact Form Submission',
+        to_Email: "desinguezhumalai2002@gmail.com"
       };
 
-      // Using EmailJS to send the form
+      // Using EmailJS to sends the form
       emailjs.send(serviceID, templateID, templateParams, publicKey)
         .then((response) => {
           this.successMessage = "Email sent successfully!";
@@ -124,6 +132,21 @@ export default {
 <template>
   <!-- The rest of your template remains unchanged -->
   <div>
+    
+     <!-- SCROLLING BANNER Section-->
+     <div class="banner-bar">
+      <div class="scroll-track">
+        <div class="scroll-content">
+          <span v-for="(item, index) in scrollItems" :key="'1-' + index">
+            {{ item }} &nbsp; ● &nbsp;
+          </span>
+          <span v-for="(item, index) in scrollItems" :key="'2-' + index">
+            {{ item }} &nbsp; ● &nbsp;
+          </span>
+        </div>
+      </div>
+    </div>
+
     <!-- Navigation Bar Section -->
     <div class="container p-3">
       <nav class="navbar navbar-expand-lg navbar-light ">
@@ -205,41 +228,30 @@ export default {
     <div class="p-lg-5">
       <h2 class="poppins-semibold justify-content-center d-flex py-3">Expertise</h2>
       <div class="justify-content-evenly d-flex flex-wrap p-1">
-        <div class="expertise bg-gray border border-secondary rounded-1 p-2 d-flex align-items-center mb-3 mb-lg-0">
+        <div class="expertise bg-gray border border-secondary rounded-1 p-1 d-flex align-items-center mb-3 mb-lg-0">
           <div>
             <img src="../assets/icons/GraphicDesign.svg" alt="Graphic Design" class="me-1 expertise-svg">
           </div> 
-          <div>
+          <div class="p-sm-1 p-md-1 p-lg-2">
             <h5>Graphic Design</h5>
             <p class="text-secondary">Eye-catching logos,<br> branding materials, and <br> marketing collateral.</p>
           </div> 
         </div>
-        <!-- 
-        <div class="expertise bg-gray border border-secondary rounded-1 p-2 d-flex align-items-center mb-3 mb-lg-0">
-          <div>
-            <img src="../assets/icons/VideoEditing.svg" alt="Video Editing" class="me-1 expertise-svg">
-          </div>
-          <div>
-            <h5></h5>
-            <p class="text-secondary"></p>
-          </div>  
-        </div>
-        -->
-        <div class="expertise bg-gray border border-secondary rounded-1 p-2 d-flex align-items-center mb-3 mb-lg-0">
+        <div class="expertise bg-gray border border-secondary rounded-1 p-1 d-flex align-items-center mb-3 mb-lg-0">
           <div>
             <img src="../assets/icons/GraphicDesign.svg" alt="Graphic Design" class="me-1 expertise-svg">
           </div> 
-          <div>
+          <div class="p-sm-1 p-md-1 p-lg-2">
             <h5>Video Editing</h5>
             <p class="text-secondary">Enhancing Your Vision <br> with creative the Video <br> Edits.</p>
           </div> 
         </div>
         
-        <div class="expertise bg-gray border border-secondary rounded-1 p-2 d-flex align-items-center mb-3 mb-lg-0">
+        <div class="expertise bg-gray border border-secondary rounded-1 p-1 d-flex align-items-center mb-3 mb-lg-0">
           <div>
             <img src="../assets/icons/WebDesign.svg" alt="Web Design" class="me-1 expertise-svg">
           </div>
-          <div>
+          <div class="p-sm-1 p-md-1 p-lg-2">
             <h5>Web Design</h5>
             <p class="text-secondary">Crafting Visually <br>stunning, user-centered <br> websites that.</p>
           </div>  
@@ -339,12 +351,12 @@ export default {
                   <h5 class="card-title mb-0">Kavin K</h5>
                   <small class="text-muted">Graphic Designer</small>
                 </div>
-                <img
+                <!-- <img
                   src="../assets/testimonials/teamwork.png"
                   alt="Teamwork Logo"
                   class="ms-auto"
                   width="50"
-                />
+                /> -->
               </div>
             </div>
           </div>
@@ -486,7 +498,6 @@ export default {
               <input
                 type="text"
                 id="name"
-                name="name"
                 class="form-control"
                 v-model="form.name"
                 placeholder="Enter your name"
@@ -497,7 +508,6 @@ export default {
               <label for="email" class="form-label">Email</label>
               <input
                 type="email"
-                name="email"
                 id="email"
                 class="form-control"
                 v-model="form.email"
@@ -509,7 +519,6 @@ export default {
               <label for="message" class="form-label">Message</label>
               <textarea
                 id="message"
-                name="message"
                 class="form-control"
                 rows="4"
                 v-model="form.message"
@@ -543,6 +552,53 @@ export default {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,800;0,900;1,300;1,800&display=swap');
 
+@import url('https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css');
+
+.banner-bar {
+  background-color: black;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  z-index: 9999;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+}
+
+
+.scroll-track {
+  display: flex;
+  animation: scroll-loop 12s linear infinite;
+}
+
+.scroll-content {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.scroll-content span {
+  color: transparent;
+  -webkit-text-stroke: 1px white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  padding-right: 4rem;
+}
+
+/* Keyframes with pause at beginning and end */
+@keyframes scroll-loop {
+  0% {
+    transform: translateX(0%);
+  }
+  8.33% {
+    transform: translateX(0%); /* Pause ~2s */
+  }
+  91.66% {
+    transform: translateX(-50%); /* End of scroll ~22s */
+  }
+  100% {
+    transform: translateX(-50%); /* Pause ~2s */
+  }
+}
 
 blockquote {
   font-size: 1rem;
