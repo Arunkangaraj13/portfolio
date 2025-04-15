@@ -232,7 +232,7 @@ export default {
           <div>
             <img src="../assets/icons/GraphicDesign.svg" alt="Graphic Design" class="me-1 expertise-svg">
           </div> 
-          <div class="p-sm-1 p-md-1 p-lg-2">
+          <div class="p-2">
             <h5>Graphic Design</h5>
             <p class="text-secondary">Eye-catching logos,<br> branding materials, and <br> marketing collateral.</p>
           </div> 
@@ -241,7 +241,7 @@ export default {
           <div>
             <img src="../assets/icons/GraphicDesign.svg" alt="Graphic Design" class="me-1 expertise-svg">
           </div> 
-          <div class="p-sm-1 p-md-1 p-lg-2">
+          <div class="p-2">
             <h5>Video Editing</h5>
             <p class="text-secondary">Enhancing Your Vision <br> with creative the Video <br> Edits.</p>
           </div> 
@@ -251,7 +251,7 @@ export default {
           <div>
             <img src="../assets/icons/WebDesign.svg" alt="Web Design" class="me-1 expertise-svg">
           </div>
-          <div class="p-sm-1 p-md-1 p-lg-2">
+          <div class="p-2">
             <h5>Web Design</h5>
             <p class="text-secondary">Crafting Visually <br>stunning, user-centered <br> websites that.</p>
           </div>  
