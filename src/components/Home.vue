@@ -45,7 +45,7 @@ export default {
         {
           id: 3,
           image: new URL('../assets/Thumbnails/TitanFlt.jpg', import.meta.url).href, // Fixed image path
-          category: 'VIDEO EDITING',
+          category: 'LANDING PAGE DESINGN',
           title: 'TitanFit | Fitness',
           url:'https://www.figma.com/proto/CguWYXK7HFyfV8xAv3N5Xh/Landing-Page---Portfolio---TitanFit?page-id=0%3A1&node-id=1-2&viewport=791%2C95%2C0.13&t=wbCG1CLMUbTggdZB-1&scaling=scale-down-width&content-scaling=fixed',
           description: 'Your fitness journey starts here. TitanFit offers the best workout space, modern equipment, and expert guidance to help you stay fit and healthy. Train better. Feel stronger. Live healthier with TitanFit.'
@@ -568,7 +568,7 @@ export default {
 
 .scroll-track {
   display: flex;
-  animation: scroll-loop 12s linear infinite;
+  animation: scroll-loop 15s linear infinite;
 }
 
 .scroll-content {
