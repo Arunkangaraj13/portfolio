@@ -37,15 +37,15 @@ export default {
         {
           id: 2,
           image: new URL('../assets/Thumbnails/Swift Buy.jpg', import.meta.url).href, // Fixed image path
-          category: 'WEB DESIGN',
-          title: 'Website Redesign',
+          category: 'LANDING PAGE DESIGN',
+          title: 'SwiftBuy | Ecommerce',
           url:'https://www.figma.com/proto/NHqucSObxt46GjTURmRgu0/Landing-Page---Portfolio?page-id=0%3A1&node-id=1-2&viewport=584%2C48%2C0.08&t=xcMhg8hbpGIgKmgh-1&scaling=scale-down-width&content-scaling=fixed',
-          description: 'A modern and memorable brand identity that not only captured attention but also significantly increased recognition by an impressive 30%.'
+          description: 'SwiftBuy is a clean and user-friendly eCommerce landing page. It offers smooth navigation, a simple layout, and engaging visuals, making online shopping quick and hassle-free.'
         },
         {
           id: 3,
           image: new URL('../assets/Thumbnails/TitanFlt.jpg', import.meta.url).href, // Fixed image path
-          category: 'LANDING PAGE DESINGN',
+          category: 'LANDING PAGE DESIGN',
           title: 'TitanFit | Fitness',
           url:'https://www.figma.com/proto/CguWYXK7HFyfV8xAv3N5Xh/Landing-Page---Portfolio---TitanFit?page-id=0%3A1&node-id=1-2&viewport=791%2C95%2C0.13&t=wbCG1CLMUbTggdZB-1&scaling=scale-down-width&content-scaling=fixed',
           description: 'Your fitness journey starts here. TitanFit offers the best workout space, modern equipment, and expert guidance to help you stay fit and healthy. Train better. Feel stronger. Live healthier with TitanFit.'
